@@ -3,12 +3,8 @@ using System.Collections.Generic;
 
 namespace PackagingCalculator.Entities
 {
-    public class Order
+    public class OrderCreate
     {
-        public int OrderID { get; set; }
-
         public List<Item> Items { get; set; }
-
-        public int RequiredBinWidth { get; set; }
     }
 }
