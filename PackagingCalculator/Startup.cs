@@ -12,7 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using PackagingCalculator.Models;
+using PackagingCalculator.Repositories;
+using PackagingCalculator.Helpers;
 
 namespace PackagingCalculator
 {
@@ -30,13 +31,14 @@ namespace PackagingCalculator
         {
 
             services.AddControllers();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GpioService", Version = "v1" });
-            //});
-            services.AddDbContext<PackagingCalculatorContext>(opt =>
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "GpioService", Version = "v1" });
+            });
+            services.AddDbContext<OrderDbContext>(opt =>
                                              opt.UseInMemoryDatabase("TodoList"));
-
+            services.AddSingleton<IBinWidthCalculator, BinWidthCalculator>();
+            services.AddSingleton<IOrderRepository, OrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,8 +47,8 @@ namespace PackagingCalculator
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GpioService v1"));
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GpioService v1"));
             }
 
             app.UseHttpsRedirection();

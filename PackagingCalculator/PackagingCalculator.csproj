@@ -17,6 +17,7 @@
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
     <None Remove="Repositories\" />
     <None Remove="Entities\" />
+    <None Remove="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
@@ -36,5 +37,6 @@
     <Folder Include="Models\" />
     <Folder Include="Repositories\" />
     <Folder Include="Entities\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>

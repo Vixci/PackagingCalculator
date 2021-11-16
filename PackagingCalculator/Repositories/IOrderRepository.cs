@@ -8,6 +8,7 @@ namespace PackagingCalculator.Repositories
     {
         Order GetSingle(int id);
         void Add(Order order);
+        bool OrderExists(int id);
         bool Save();
     }
 }

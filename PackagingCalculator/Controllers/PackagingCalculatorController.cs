@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PackagingCalculator.Repositories;
+using PackagingCalculator.Helpers;
 using PackagingCalculator.Entities;
 
 namespace PackagingCalculator.Controllers
@@ -15,9 +16,11 @@ namespace PackagingCalculator.Controllers
     {
         private readonly ILogger<PackagingCalculatorController> _logger;
         private readonly IOrderRepository _orderRepository;
+        private readonly IBinWidthCalculator _binWidthCalculator;
 
-        public PackagingCalculatorController(ILogger<PackagingCalculatorController> logger, IOrderRepository orderRepository)
+        public PackagingCalculatorController(ILogger<PackagingCalculatorController> logger, IOrderRepository orderRepository, IBinWidthCalculator binWidthCalculator)
         {
+            _binWidthCalculator = binWidthCalculator;
             _orderRepository = orderRepository;
             _logger = logger;
         }
@@ -63,27 +66,38 @@ namespace PackagingCalculator.Controllers
         }
 
         [HttpPost(Name = nameof(AddOrder))]
-        public ActionResult<FoodDto> AddOrder(ApiVersion version, [FromBody] FoodCreateDto foodCreateDto)
+        public ActionResult<Order> AddOrder([FromBody] int id, OrderCreate orderCreate)
         {
-            if (foodCreateDto == null)
+
+            if (orderCreate == null || _orderRepository.OrderExists(id))
             {
                 return BadRequest();
             }
 
-            FoodEntity toAdd = _mapper.Map<FoodEntity>(foodCreateDto);
-
-            _foodRepository.Add(toAdd);
-
-            if (!_foodRepository.Save())
+            Order order = new Order
             {
-                throw new Exception("Creating a fooditem failed on save.");
-            }
+                OrderID = id,
+                Items = orderCreate.Items,
+                RequiredBinWidth = _binWidthCalculator.calculateMinimumBinWidth(orderCreate.Items)
+            };
 
-            FoodEntity newFoodItem = _foodRepository.GetSingle(toAdd.Id);
+            _orderRepository.Add(order);
 
-            return CreatedAtRoute(nameof(GetSingleFood),
-                new { version = version.ToString(), id = newFoodItem.Id },
-                _mapper.Map<FoodDto>(newFoodItem));
+            return order;
+            //FoodEntity toAdd = _mapper.Map<FoodEntity>(foodCreateDto);
+
+            //_foodRepository.Add(toAdd);
+
+            //if (!_foodRepository.Save())
+            //{
+            //    throw new Exception("Creating a fooditem failed on save.");
+            //}
+
+            //FoodEntity newFoodItem = _foodRepository.GetSingle(toAdd.Id);
+
+            //return CreatedAtRoute(nameof(GetSingleFood),
+            //    new { version = version.ToString(), id = newFoodItem.Id },
+            //    _mapper.Map<FoodDto>(newFoodItem));
         }
     }
 }

@@ -9,6 +9,6 @@ namespace PackagingCalculator.Entities
 
         public List<Item> Items { get; set; }
 
-        public int RequiredBinWidth { get; set; }
+        public double RequiredBinWidth { get; set; }
     }
 }
