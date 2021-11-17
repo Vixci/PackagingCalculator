@@ -21,7 +21,7 @@ namespace PackagingCalculator.Repositories
             return result;
         }
 
-        public async void Save(Order order)
+        public async Task<int> Save(Order order)
         {
             _orderDbContext.Orders.Add(order);
 
@@ -30,7 +30,7 @@ namespace PackagingCalculator.Repositories
                 _orderDbContext.Items.Add(item);
             }
 
-            await (_orderDbContext.SaveChangesAsync());
+            return await _orderDbContext.SaveChangesAsync();
         }
 
         public bool Exists(long id)

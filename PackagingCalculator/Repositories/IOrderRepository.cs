@@ -10,6 +10,6 @@ namespace PackagingCalculator.Repositories
     {
         Task<Order> GetSingle(long id);
         bool Exists(long id);
-        void Save(Order order);
+        Task<int> Save(Order order);
     }
 }

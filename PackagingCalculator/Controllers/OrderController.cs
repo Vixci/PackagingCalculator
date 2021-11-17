@@ -51,8 +51,7 @@ namespace PackagingCalculator.Controllers
                 RequiredBinWidth = _binWidthCalculator.calculateMinimumBinWidth(orderCreate.Items)
             };
 
-            _orderRepository.Save(order);
-
+            await _orderRepository.Save(order);
 
             return CreatedAtAction("GetSingleOrder", new { id = order.OrderId }, order);
         }
