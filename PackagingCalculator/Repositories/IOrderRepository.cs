@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using PackagingCalculator.Entities;
 
 namespace PackagingCalculator.Repositories
 {
     public interface IOrderRepository
     {
-        Order GetSingle(Guid id);
+        Task<Order> GetSingle(long id);
         void Add(Order order);
-        bool OrderExists(Guid id);
+        bool OrderExists(long id);
         bool Save();
     }
 }

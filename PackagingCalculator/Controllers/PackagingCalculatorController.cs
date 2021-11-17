@@ -27,9 +27,9 @@ namespace PackagingCalculator.Controllers
 
         [HttpGet]
         [Route("{id:int}", Name = nameof(GetSingleOrder))]
-        public ActionResult GetSingleOrder(Guid id)
+        public async Task<ActionResult<Order>> GetSingleOrder(long id)
         {
-            Order order = _orderRepository.GetSingle(id);
+            Order order = await _orderRepository.GetSingle(id);
 
             if (order == null)
             {
@@ -50,7 +50,6 @@ namespace PackagingCalculator.Controllers
 
             Order order = new Order
             {
-                OrderID = Guid.NewGuid(),
                 Items = orderCreate.Items,
                 RequiredBinWidth = _binWidthCalculator.calculateMinimumBinWidth(orderCreate.Items)
             };

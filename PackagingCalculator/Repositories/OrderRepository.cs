@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using PackagingCalculator.Entities;
 
 namespace PackagingCalculator.Repositories
@@ -14,9 +15,10 @@ namespace PackagingCalculator.Repositories
             _orderDbContext = orderDbContext;
         }
 
-        public Order GetSingle(Guid id)
+        public async Task<Order> GetSingle(long id)
         {
-            return _orderDbContext.Orders.FirstOrDefault(x => x.OrderID == id);
+            var result = await _orderDbContext.Orders.FindAsync(id);
+            return result;
         }
 
         public void Add(Order order)
@@ -25,7 +27,7 @@ namespace PackagingCalculator.Repositories
             
         }
 
-        public bool OrderExists(Guid id)
+        public bool OrderExists(long id)
         {
             return _orderDbContext.Orders.Any(x => x.OrderID == id);
         }
