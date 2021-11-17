@@ -12,14 +12,14 @@ namespace PackagingCalculator.Helpers
 
             foreach (Item item in items)
             {
-                double width = getWidthProduct(item.ProductType.ToString());
+                double width = getWidthProduct(item.Type.ToString());
 
                 if (item.ToString() == "mug" && item.Quantity < 4)
                 {
                     minBinWidth += width;
                 }
                 else {
-                    minBinWidth += (width * ((item.Quantity % 4) + 1));
+                    minBinWidth += (width * (Math.Floor((double) item.Quantity / 4) + item.Quantity % 4));
                 }
             }
             return minBinWidth;

@@ -3,8 +3,9 @@ namespace PackagingCalculator.Entities
 {
     public class Item
     {
-        public ProductType ProductType { get; set; }
-
+        public long ItemId { get; set; }
+        public long OrderId { get; set; }
+        public ProductType Type { get; set; }
         public int Quantity { get; set; }
     }
 
