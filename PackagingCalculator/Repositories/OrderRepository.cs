@@ -14,7 +14,7 @@ namespace PackagingCalculator.Repositories
             _orderDbContext = orderDbContext;
         }
 
-        public Order GetSingle(int id)
+        public Order GetSingle(Guid id)
         {
             return _orderDbContext.Orders.FirstOrDefault(x => x.OrderID == id);
         }
@@ -25,7 +25,7 @@ namespace PackagingCalculator.Repositories
             
         }
 
-        public bool OrderExists(int id)
+        public bool OrderExists(Guid id)
         {
             return _orderDbContext.Orders.Any(x => x.OrderID == id);
         }

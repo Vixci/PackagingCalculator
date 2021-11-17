@@ -27,7 +27,7 @@ namespace PackagingCalculator.Controllers
 
         [HttpGet]
         [Route("{id:int}", Name = nameof(GetSingleOrder))]
-        public ActionResult GetSingleOrder(int id)
+        public ActionResult GetSingleOrder(Guid id)
         {
             Order order = _orderRepository.GetSingle(id);
 
@@ -40,17 +40,17 @@ namespace PackagingCalculator.Controllers
         }
 
         [HttpPost(Name = nameof(AddOrder))]
-        public ActionResult<Order> AddOrder([FromBody] OrderCreate orderCreate, int id)
+        public ActionResult<Order> AddOrder([FromBody] OrderCreate orderCreate)
         {
 
-            if (orderCreate == null || _orderRepository.OrderExists(id))
+            if (orderCreate == null)
             {
                 return BadRequest();
             }
 
             Order order = new Order
             {
-                OrderID = id,
+                OrderID = Guid.NewGuid(),
                 Items = orderCreate.Items,
                 RequiredBinWidth = _binWidthCalculator.calculateMinimumBinWidth(orderCreate.Items)
             };
