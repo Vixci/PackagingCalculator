@@ -6,36 +6,36 @@ namespace PackagingCalculator.Helpers
 {
     public class BinWidthCalculator : IBinWidthCalculator
     {
-        public double calculateMinimumBinWidth(List<Item> items)
+        public double calculateMinimumBinWidth(ICollection<Item> items)
         {
             double minBinWidth = 0;
 
             foreach (Item item in items)
             {
-                double width = getWidthProduct(item.Type.ToString());
+                double width = getWidthProduct(item.Type);
 
-                if (item.ToString() == "mug" && item.Quantity < 4)
+                if (item.Type.Equals(ProductType.mug))
                 {
-                    minBinWidth += width;
+                    width = width * Math.Floor((double)(item.Quantity - 1) / 4 + 1);
                 }
-                else {
-                    minBinWidth += (width * (Math.Floor((double) item.Quantity / 4) + item.Quantity % 4));
-                }
+
+                minBinWidth += width;
+
             }
             return minBinWidth;
         }
 
         //why? see note
         //TODO: Check right data type instead of double
-        private double getWidthProduct(string name)
+        private double getWidthProduct(ProductType type)
         {
-            switch (name)
+            switch (type)
             {
-                case "mug": return 94;
-                case "photoBook": return 19;
-                case "canvas": return 16;
-                case "cards": return 4.7;
-                case "calendar": return 10;
+                case ProductType.mug: return 94;
+                case ProductType.photobook: return 19;
+                case ProductType.canvas: return 16;
+                case ProductType.cards: return 4.7;
+                case ProductType.calendar: return 10;
                 default: return 0;
             }
         }

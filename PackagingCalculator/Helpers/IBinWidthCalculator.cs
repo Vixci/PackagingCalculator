@@ -6,6 +6,6 @@ namespace PackagingCalculator.Helpers
 {
     public interface IBinWidthCalculator
     {
-        double calculateMinimumBinWidth(List<Item> items);
+        double calculateMinimumBinWidth(ICollection<Item> items);
     }
 }
