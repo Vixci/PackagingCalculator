@@ -42,10 +42,11 @@ namespace OrderControllerTests
             mockOrderRepository.Setup(repo => repo.GetSingle(It.IsAny<long>())).ReturnsAsync(testOrder);
 
             //Act
-            var result = await packagingCalculatorController.GetSingleOrder(1);
+            var result = await packagingCalculatorController.GetSingleOrder(It.IsAny<long>());
 
             //Assert
-            Assert.Equal(result.Value, testOrder);
+            var actual = result.Result as OkObjectResult;
+            Assert.Equal(testOrder, actual.Value);
         }
 
         [Fact]

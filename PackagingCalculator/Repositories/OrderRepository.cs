@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PackagingCalculator.Entities;
 
 namespace PackagingCalculator.Repositories
@@ -17,7 +18,10 @@ namespace PackagingCalculator.Repositories
 
         public async Task<Order> GetSingle(long id)
         {
-            var result = await _orderDbContext.Orders.FindAsync(id);
+            var result = await _orderDbContext.Orders
+                .Include(order => order.Items)
+                .FirstOrDefaultAsync(order => order.OrderId == id);
+
             return result;
         }
 
