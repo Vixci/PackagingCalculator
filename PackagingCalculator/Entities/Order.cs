@@ -5,7 +5,7 @@ namespace PackagingCalculator.Entities
 {
     public class Order
     {
-        public long OrderID { get; set; }
+        public long OrderId { get; set; }
 
         public List<Item> Items { get; set; }
 

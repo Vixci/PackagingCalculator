@@ -9,13 +9,13 @@ namespace PackagingCalculator.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PackagingCalculatorController : ControllerBase
+    public class OrderController : ControllerBase
     {
-        private readonly ILogger<PackagingCalculatorController> _logger;
+        private readonly ILogger<OrderController> _logger;
         private readonly IOrderRepository _orderRepository;
         private readonly IBinWidthCalculator _binWidthCalculator;
 
-        public PackagingCalculatorController(ILogger<PackagingCalculatorController> logger, IOrderRepository orderRepository, IBinWidthCalculator binWidthCalculator)
+        public OrderController(ILogger<OrderController> logger, IOrderRepository orderRepository, IBinWidthCalculator binWidthCalculator)
         {
             _binWidthCalculator = binWidthCalculator;
             _orderRepository = orderRepository;

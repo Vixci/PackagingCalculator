@@ -28,7 +28,7 @@ namespace PackagingCalculator.Repositories
 
         public bool OrderExists(long id)
         {
-            return _orderDbContext.Orders.Any(x => x.OrderID == id);
+            return _orderDbContext.Orders.Any(x => x.OrderId == id);
         }
 
         public bool Save()

@@ -9,14 +9,14 @@ using Microsoft.Extensions.Logging;
 using PackagingCalculator.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PackagingCalculatorTests
+namespace OrderControllerTests
 {
-    public class PackagingCalculatorTests
+    public class OrderControllerTests
     {
 
         Order testOrder = new Order
         {
-            OrderID = 1,
+            OrderId = 1,
             Items = new List<Item> {
                     new Item {
                         ItemId = 1,
@@ -33,10 +33,10 @@ namespace PackagingCalculatorTests
         {
             //Arrange
             var mockOrderRepository = new Mock<IOrderRepository>();
-            var mockLogger = new Mock<ILogger<PackagingCalculatorController>>();
+            var mockLogger = new Mock<ILogger<OrderController>>();
             var mockBinWidthCalculator = new Mock<IBinWidthCalculator>();
 
-            PackagingCalculatorController packagingCalculatorController = new PackagingCalculatorController(mockLogger.Object, mockOrderRepository.Object, mockBinWidthCalculator.Object);
+            OrderController packagingCalculatorController = new OrderController(mockLogger.Object, mockOrderRepository.Object, mockBinWidthCalculator.Object);
 
             mockOrderRepository.Setup(repo => repo.GetSingle(It.IsAny<long>())).ReturnsAsync(testOrder);
 
