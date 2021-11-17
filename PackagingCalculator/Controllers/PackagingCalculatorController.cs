@@ -58,20 +58,6 @@ namespace PackagingCalculator.Controllers
             _orderRepository.Add(order);
 
             return order;
-            //FoodEntity toAdd = _mapper.Map<FoodEntity>(foodCreateDto);
-
-            //_foodRepository.Add(toAdd);
-
-            //if (!_foodRepository.Save())
-            //{
-            //    throw new Exception("Creating a fooditem failed on save.");
-            //}
-
-            //FoodEntity newFoodItem = _foodRepository.GetSingle(toAdd.Id);
-
-            //return CreatedAtRoute(nameof(GetSingleFood),
-            //    new { version = version.ToString(), id = newFoodItem.Id },
-            //    _mapper.Map<FoodDto>(newFoodItem));
         }
     }
 }
