@@ -56,6 +56,7 @@ namespace PackagingCalculator.Controllers
             };
 
             _orderRepository.Add(order);
+            _orderRepository.Save();
 
             return order;
         }
