@@ -21,10 +21,9 @@ namespace PackagingCalculator.Repositories
             return result;
         }
 
-        public void Add(Order order)
+        public async void Add(Order order)
         {
-            _orderDbContext.Orders.Add(order);
-            
+            await _orderDbContext.Orders.AddAsync(order);
         }
 
         public bool OrderExists(long id)

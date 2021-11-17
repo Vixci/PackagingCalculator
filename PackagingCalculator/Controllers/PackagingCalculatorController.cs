@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PackagingCalculator.Repositories;
@@ -40,7 +37,7 @@ namespace PackagingCalculator.Controllers
         }
 
         [HttpPost(Name = nameof(AddOrder))]
-        public ActionResult<Order> AddOrder([FromBody] OrderCreate orderCreate)
+        public async Task<ActionResult<Order>> AddOrder([FromBody] OrderCreate orderCreate)
         {
 
             if (orderCreate == null)
@@ -58,6 +55,6 @@ namespace PackagingCalculator.Controllers
             _orderRepository.Save();
 
             return order;
-        }
+        }   
     }
 }
