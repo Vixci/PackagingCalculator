@@ -9,8 +9,7 @@ namespace PackagingCalculator.Repositories
     public interface IOrderRepository
     {
         Task<Order> GetSingle(long id);
-        void Add(Order order);
-        bool OrderExists(long id);
-        bool Save();
+        bool Exists(long id);
+        void Save(Order order);
     }
 }

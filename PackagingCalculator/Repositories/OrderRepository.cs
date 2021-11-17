@@ -21,19 +21,21 @@ namespace PackagingCalculator.Repositories
             return result;
         }
 
-        public async void Add(Order order)
+        public async void Save(Order order)
         {
-            await _orderDbContext.Orders.AddAsync(order);
+            _orderDbContext.Orders.Add(order);
+
+            foreach (Item item in order.Items)
+            {
+                _orderDbContext.Items.Add(item);
+            }
+
+            await (_orderDbContext.SaveChangesAsync());
         }
 
-        public bool OrderExists(long id)
+        public bool Exists(long id)
         {
             return _orderDbContext.Orders.Any(x => x.OrderId == id);
-        }
-
-        public bool Save()
-        {
-            return (_orderDbContext.SaveChanges() >= 0);
         }
     }
 }
