@@ -19,7 +19,7 @@ namespace PackagingCalculator.Helpers
                     minBinWidth += width;
                 }
                 else {
-                    minBinWidth += (width * item.Quantity);
+                    minBinWidth += (width * ((item.Quantity % 4) + 1));
                 }
             }
             return minBinWidth;
