@@ -37,8 +37,8 @@ namespace PackagingCalculator
             });
             services.AddDbContext<OrderDbContext>(opt =>
                                              opt.UseInMemoryDatabase("TodoList"));
-            services.AddSingleton<IBinWidthCalculator, BinWidthCalculator>();
-            services.AddSingleton<IOrderRepository, OrderRepository>();
+            services.AddScoped<IBinWidthCalculator, BinWidthCalculator>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,23 +9,17 @@ namespace PackagingCalculator.Helpers
         public double calculateMinimumBinWidth(List<Item> items)
         {
             double minBinWidth = 0;
-            int x = 0;
 
             foreach (Item item in items)
             {
                 double width = getWidthProduct(item.ProductType.ToString());
 
-                if (item.ToString() == "mug")
+                if (item.ToString() == "mug" && item.Quantity < 4)
                 {
-                    x++;
-                    if (x > 4)
-                    {
-                        x = 0;
-                        minBinWidth += width;
-                    }
+                    minBinWidth += width;
                 }
                 else {
-                    minBinWidth += width;
+                    minBinWidth += (width * item.Quantity);
                 }
             }
             return minBinWidth;

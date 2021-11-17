@@ -25,32 +25,6 @@ namespace PackagingCalculator.Controllers
             _logger = logger;
         }
 
-        //[HttpPut]
-        //public IEnumerable<WeatherForecast> Put(List<List<string>> orders,  )
-        //{
-        //    var rng = new Random();
-        //    return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        //    {
-        //        Date = DateTime.Now.AddDays(index),
-        //        TemperatureC = rng.Next(-20, 55),
-        //        Summary = Summaries[rng.Next(Summaries.Length)]
-        //    })
-        //    .ToArray();
-        //}
-
-        //[HttpGet]
-        //public IEnumerable<WeatherForecast> Get()
-        //{
-        //    var rng = new Random();
-        //    return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        //    {
-        //        Date = DateTime.Now.AddDays(index),
-        //        TemperatureC = rng.Next(-20, 55),
-        //        Summary = Summaries[rng.Next(Summaries.Length)]
-        //    })
-        //    .ToArray();
-        //}
-
         [HttpGet]
         [Route("{id:int}", Name = nameof(GetSingleOrder))]
         public ActionResult GetSingleOrder(int id)
@@ -66,7 +40,7 @@ namespace PackagingCalculator.Controllers
         }
 
         [HttpPost(Name = nameof(AddOrder))]
-        public ActionResult<Order> AddOrder([FromBody] int id, OrderCreate orderCreate)
+        public ActionResult<Order> AddOrder([FromBody] OrderCreate orderCreate, int id)
         {
 
             if (orderCreate == null || _orderRepository.OrderExists(id))
