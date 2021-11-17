@@ -8,6 +8,7 @@ using PackagingCalculator.Controllers;
 using Microsoft.Extensions.Logging;
 using PackagingCalculator.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace OrderControllerTests
 {
@@ -50,20 +51,19 @@ namespace OrderControllerTests
         [Fact]
         public async void CheckIfAddOrderIsNullTest()
         {
-            ////Arrange
-            //var mockOrderRepository = new Mock<IOrderRepository>();
-            //var mockLogger = new Mock<ILogger<PackagingCalculatorController>>();
-            //var mockBinWidthCalculator = new Mock<IBinWidthCalculator>();
+            //Arrange
+            var mockOrderRepository = new Mock<IOrderRepository>();
+            var mockLogger = new Mock<ILogger<OrderController>>();
+            var mockBinWidthCalculator = new Mock<IBinWidthCalculator>();
 
-            //PackagingCalculatorController packagingCalculatorController = new PackagingCalculatorController(mockLogger.Object, mockOrderRepository.Object, mockBinWidthCalculator.Object);
+            OrderController orderController = new OrderController(mockLogger.Object, mockOrderRepository.Object, mockBinWidthCalculator.Object);
 
-            //mockOrderRepository.Setup(repo => repo.Add(It.IsAny<Order>()));
+            //Act
+            var result = await orderController.AddOrder(null);
 
-            ////Act
-            //var result = await packagingCalculatorController.AddOrder(1);
-
-            ////Assert
-            //Assert.Equal(result.Value, testOrder);
+            //Assert
+            //TODO: use constants
+            (result.Result as StatusCodeResult).StatusCode.Equals(HttpStatusCode.BadRequest);
         }
     }
 }
